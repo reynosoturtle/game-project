@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>game 1</title>
+<style>
+    @font-face {
+        font-family: 'fr73pixelw00-regularregular';
+        src: url('fonts/fr73-pixel-w00_regular-webfont.woff2') format('woff2'),
+             url('fonts/fr73-pixel-w00_regular-webfont.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    body {
+        cursor: cell;
+    }
+
+    h1 {
+        font-family: "fr73pixelw00-regularregular";
+        font-size: 24px;
+    }
+
+    h2 {
+        font-family: "fr73pixelw00-regularregular";
+        font-size: 20px;
+    }
+
+    p {
+        font-family: "fr73pixelw00-regularregular";
+        font-size: 16px;
+    }
+
+    .instructions {
+        width: 515px;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    .game-start {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        cursor: pointer;
+    }
+
+    .game-start:hover {
+        text-decoration: underline;
+    }
+
+    .float-left {
+        float: left;
+    }
+
+    .float-right {
+        float: right;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    #game-1-window {
+        position: relative;
+        top: 50px;
+        width: 800px;
+        height: 600px;
+        border: black 5px solid;
+        margin: 0 auto;
+        /*-webkit-animation: closeGame 1s 1;
+        animation: closeGame 1s 1;*/
+    }
+
+    /* Chrome, Safari, Opera */
+    @-webkit-keyframes closeGame {
+        from {
+            width: 800px;
+            height: 600px;
+            display: block;
+        }
+        to {
+            width: 0;
+            height: 0;
+            display: none;
+        }
+    }
+
+    @keyframes closeGame {
+        from {
+            width: 800px;
+            height: 600px;
+            display: block;
+        }
+        to {
+            width: 0;
+            height: 0;
+            display: none;
+        }
+    }
+
+    #close-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+    }
+
+    .close-button {
+        width: 40px;
+    }
+
+    #play-window {
+        position: relative;
+        width: 730px;
+        height: 475px;
+        border: 5px black solid;
+        margin: 0 auto;
+        background:url(
+data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAATklEQVQoU2NkYGAwZmBgOMuAACA+CKCIMSIpADGRNaEYgKwQ3WQUjTCF6CYhWw2WAynEpgjmIpg7jUlSiM0TWK2GWUOUZ7ApxggeogIcABHJFtftKVfJAAAAAElFTkSuQmCC) repeat;
+    }
+    #gameOver {
+        position: absolute;
+        left: 50%;
+        top: 65%;
+        transform: translate(-50%, -50%);
+    }
+
+    #p1-score {
+        position: absolute;
+        top: 25px;
+        left: 50px;
+    }
+
+    #p2-score {
+        position: absolute;
+        top: 25px;
+        right: 50px;
+    }
+
+    #round-counter {
+        position: absolute;
+        bottom: 25px;
+        left: 50px;
+    }
+
+    #round-timer {
+        position: absolute;
+        bottom: 25px;
+        right: 50px;
+    }
+
+    #main-game {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 630px;
+        height: 360px;
+    }
+
+    #main-game img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .shape-container {
+        width: 105px;
+        height: 105px;
+        border: black solid 5px;
+        background-color: white;
+    }
+
+    .shape-container img {
+        width: 75px;
+        height: 75px;
+    }
+
+    .player-container {
+        width: 210px;
+        height: 210px;
+        border: black solid 5px;
+        background-color: white;
+    }
+
+    #player1-frame {
+        position: absolute;
+        left: 315.5px;
+        top: 50%;
+        transform: translate(-100%, -50%);
+    }
+
+    #player2-frame {
+        position: absolute;
+        left: 310.5px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    #left-frame {
+        position: absolute;
+        left: -14.5px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    #right-frame {
+        position: absolute;
+        left: 525.5px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    #top-frame {
+        position: absolute;
+        left: 50%;
+        top: -40.5px;
+        transform: translateX(-50%);
+    }
+
+    #bottom-frame {
+        position: absolute;
+        left: 50%;
+        top: 284.5px;
+        transform: translateX(-50%);
+    }
+
+    .opacity {
+        opacity: 0.3;
+    }
+</style>
+</head>
+<body>
+    <div id="game-1-window">
+        <nav>
+            <div id="window-title" class="text-center"><h1>Game 1</h1></div>
+            <div id="close-button" onclick="closeGame()"><img class="close-button" src="img/close-button.png"></div>
+        </nav>
+        <div id="play-window">
+            <div id="tutorial">
+                <h1 class="text-center">Looking for Love</h1>
+                <h2 class="instructions">Look for the heart! Don't let the colour and other suits confuse you.</h2>
+                <h1 class="text-center">Controls:</h1>
+                <h2 class="instructions">Player 1:<br> W (Up) A (Down) S (Left) D (Right)<br>
+                Player 2:<br> Arrow Keys (Up, Down, Left and Right)</h2>
+                <h1 class="text-center game-start" onclick="readyStart()">Start Game</h1>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        function readyStart(){
+            var playWindow = document.querySelector("#play-window");
+            //removes tutorial
+            playWindow.innerHTML = "";
+            //create ready start
+            var backdrop = document.createElement("div");
+            backdrop.id = "backdrop";
+            backdrop.classList.add('text-center');
+            backdrop.innerHTML = "<h1>Ready...</h1>";
+            backdrop.style.margin = "50% 0 0 0";
+            backdrop.style.transform = "translateY(-500%)";
+            playWindow.appendChild(backdrop);
+            //var audio = new Audio('audio/here-we-go.mp3');
+            //audio.play();
+            // setTimeout(startGame, 2300);
+            // setTimeout(placeRandom, 4300);
+            // setTimeout(checkForHeart, 4400);
+            setTimeout(startGame, 2000);
+            setTimeout(beginCountdown, 2000)
+            setTimeout(placeRandom, 5000);
+            setTimeout(checkForHeart, 5050);
+        }
+
+        var player1Current = 0;
+        var player2Current = 0;
+        var roundCurrent = 1;
+        var roundCountdown = 3;
+
+        var player1Turn = true;
+        var player2Turn = true;
+
+        function resetValues(){
+            player1Current = 0;
+            player2Current = 0;
+            roundCurrent = 1;
+            roundCountdown = 3;
+
+            player1Turn = true;
+            player2Turn = true;
+        }
+
+        function playAgain(){
+            resetValues();
+            readyStart();
+        }
+
+        function gameOver(){
+            var playWindow = document.querySelector("#play-window");
+            // //removes tutorial
+            // playWindow.innerHTML = "";
+            var backdrop = document.createElement("div");
+            backdrop.id = "gameOver";
+            backdrop.classList.add('text-center');
+            backdrop.innerHTML = '<h1 class="text-center game-start" onclick="playAgain()">Play Again</h1>';
+            // backdrop.style.margin = "50% 0 0 0";
+            // backdrop.style.transform = "translateY(-500%)";
+            document.querySelector("#main-game").style.opacity = "0.3";
+            document.querySelector("#play-window").appendChild(backdrop);
+        }
+
+        var finalArray = [
+            ["img/SVG/hearts-yellow.svg", "img/SVG/hearts-red.svg", "img/SVG/hearts-green.svg", "img/SVG/hearts-blue.svg"],
+            ["img/SVG/spades-yellow.svg", "img/SVG/spades-red.svg", "img/SVG/spades-green.svg", "img/SVG/spades-blue.svg"],
+            ["img/SVG/clubs-yellow.svg", "img/SVG/clubs-red.svg", "img/SVG/clubs-green.svg", "img/SVG/clubs-blue.svg"],
+            ["img/SVG/diamonds-yellow.svg", "img/SVG/diamonds-red.svg", "img/SVG/diamonds-green.svg", "img/SVG/diamonds-blue.svg"]
+        ];
+        // 1. Yellow
+        // 2. Red
+        // 3. Green
+        // 4. Blue
+        const colourArray = [0, 1, 2, 3]
+
+        // 1. Hearts
+        // 2. Spades
+        // 3. Clubs
+        // 4. Diamons
+        const suitsArray = [0, 1, 2, 3]
+
+        function beginCountdown(){
+            var time = 1;
+            roundCountdown = 3;
+            document.querySelector("#round-timer").innerHTML = "<h1>" + roundCountdown + " seconds</h1>";
+
+            var interval = setInterval(function() {
+                if (time <= 3) {
+                    time ++;
+                    roundCountdown --;
+                    document.querySelector("#round-timer").innerHTML = "<h1>" + roundCountdown + " seconds</h1>";
+                } else {
+                    clearInterval(interval);
+                }
+            }, 1000);
+        }
+
+        function placeRandom() {
+            //Place on left
+            var colourIndex = Math.floor(Math.random() * colourArray.length);
+            var suitsIndex = Math.floor(Math.random() * suitsArray.length);
+            var random = finalArray[suitsArray[suitsIndex]][colourIndex];
+            var leftFrame = document.querySelector("#left-frame");
+            var img = document.createElement("img");
+            img.src = random;
+            leftFrame.appendChild(img);
+            suitsArray.splice(suitsIndex, 1);
+
+            //Place on right
+            var colourIndex = Math.floor(Math.random() * colourArray.length);
+            var suitsIndex = Math.floor(Math.random() * suitsArray.length);
+            var random = finalArray[suitsArray[suitsIndex]][colourIndex];
+            var rightFrame = document.querySelector("#right-frame");
+            var img = document.createElement("img");
+            img.src = random;
+            rightFrame.appendChild(img);
+            suitsArray.splice(suitsIndex, 1);
+
+            //Place on bottom
+            var colourIndex = Math.floor(Math.random() * colourArray.length);
+            var suitsIndex = Math.floor(Math.random() * suitsArray.length);
+            var random = finalArray[suitsArray[suitsIndex]][colourIndex];
+            var bottomFrame = document.querySelector("#bottom-frame");
+            var img = document.createElement("img");
+            img.src = random;
+            bottomFrame.appendChild(img);
+            suitsArray.splice(suitsIndex, 1);
+
+            //Place on top
+            var colourIndex = Math.floor(Math.random() * colourArray.length);
+            var suitsIndex = Math.floor(Math.random() * suitsArray.length);
+            var random = finalArray[suitsArray[suitsIndex]][colourIndex];
+            var topFrame = document.querySelector("#top-frame");
+            var img = document.createElement("img");
+            img.src = random;
+            topFrame.appendChild(img);
+            suitsArray.splice(suitsIndex, 1);
+
+            //Reset suits array
+            suitsArray.push(0, 1, 2, 3);
+        }
+
+        function nextRound(){
+            if (roundCurrent <= 4) {
+                console.log(roundCurrent);
+                if (player1Turn == false && player2Turn == false) {
+                    console.log("both done");
+                    roundCurrent++;
+                    setTimeout(readyStart, 1000);
+                    player1Turn = true;
+                    player2Turn = true;
+                }
+            } else if (roundCurrent = 6) {
+                console.log("GAME OVER")
+                setTimeout(gameOver, 3000);
+            }
+        }
+
+        function startGame(){
+            var playWindow = document.querySelector("#play-window");
+            //removes tutorial
+            playWindow.innerHTML = "";
+
+            //create player 1 score
+            var player1Score = document.createElement("div");
+            player1Score.id = "p1-score";
+            player1Score.innerHTML = "<h1>Player 1: " + player1Current +"</h1>"
+            playWindow.appendChild(player1Score);
+
+            //create player 2 score
+            var player2Score = document.createElement("div");
+            player2Score.id = "p2-score";
+            player2Score.innerHTML = "<h1>Player 2: " + player2Current +"</h1>"
+            playWindow.appendChild(player2Score);
+
+            //create round counter
+            var roundCounter = document.createElement("div");
+            roundCounter.id = "round-counter";
+            roundCounter.innerHTML = "<h1>Round: " + roundCurrent +"/5</h1>"
+            playWindow.appendChild(roundCounter);
+
+            //create round timer
+            var roundTimer = document.createElement("div");
+            roundTimer.id = "round-timer";
+            roundTimer.innerHTML = "<h1>" + roundCountdown + " seconds</h1>";
+            playWindow.appendChild(roundTimer);
+
+            //create game constant frames
+            //create container
+            var mainGame = document.createElement("div");
+            mainGame.id = "main-game";
+            playWindow.appendChild(mainGame);
+            //create player frames
+            var playerFrame1 = document.createElement("div");
+            playerFrame1.id = "player1-frame";
+            playerFrame1.classList.add('player-container');
+            playerFrame1.innerHTML = "<img src='img/player-neutral.png'>";
+            mainGame.appendChild(playerFrame1);
+
+            var playerFrame2 = document.createElement("div");
+            playerFrame2.id = "player2-frame";
+            playerFrame2.classList.add('player-container');
+            playerFrame2.innerHTML = "<img src='img/player-neutral.png'>";
+            mainGame.appendChild(playerFrame2);
+            //create shape frames
+            var leftFrame = document.createElement("div");
+            leftFrame.id = "left-frame";
+            leftFrame.classList.add('shape-container');
+            mainGame.appendChild(leftFrame);
+
+            var rightFrame = document.createElement("div");
+            rightFrame.id = "right-frame";
+            rightFrame.classList.add('shape-container');
+            mainGame.appendChild(rightFrame);
+
+            var topFrame = document.createElement("div");
+            topFrame.id = "top-frame";
+            topFrame.classList.add('shape-container');
+            mainGame.appendChild(topFrame);
+
+            var bottomFrame = document.createElement("div");
+            bottomFrame.id = "bottom-frame";
+            bottomFrame.classList.add('shape-container');
+            mainGame.appendChild(bottomFrame);
+        }
+
+        function closeGame(){
+            var gameWindow = document.querySelector("#game-1-window");
+            // gameWindow.style.width = "0";
+            // gameWindow.style.height = "0";
+            // gameWindow.style.display = "none";
+            gameWindow.innerHTML = "";
+            gameWindow.style.WebkitAnimation = "closeGame 0.5s 1";
+            gameWindow.style.animation = "closeGame 0.5s 1";
+            setTimeout(function(){
+                gameWindow.style.display = "none";
+            }, 500);
+        }
+
+        var heartDirection = 0;
+        var player1Direction = 0;
+        var player2Direction = 0;
+
+        function checkForHeart(){
+            var leftImg = document.querySelector("#left-frame").firstElementChild.getAttribute('src');
+            var bottomImg = document.querySelector("#bottom-frame").firstElementChild.getAttribute('src');
+            var topImg = document.querySelector("#top-frame").firstElementChild.getAttribute('src');
+            var rightImg = document.querySelector("#right-frame").firstElementChild.getAttribute('src');
+
+            if (leftImg.includes('heart') == true) {
+                console.log("LEFT!!")
+                heartDirection = "left";
+
+            } else if (bottomImg.includes('heart') == true) {
+                console.log("BOTTOM!!")
+                heartDirection = "bottom";
+
+            } else if (topImg.includes('heart') == true) {
+                console.log("TOP!!")
+                heartDirection = "top";
+
+            } else if (rightImg.includes('heart') == true) {
+                console.log("RIGHT!!")
+                heartDirection = "right";
+            }
+            document.addEventListener('keydown' , logKey1);
+            document.addEventListener('keydown', logKey2);
+        }
+
+        function p1AddPoints() {
+            if (player2Direction != heartDirection) {
+                player1Current += 2;
+            } else if (player2Direction == heartDirection) {
+                player1Current += 1;
+            }
+            var player1Score = document.querySelector("#p1-score");
+            player1Score.innerHTML = "<h1>Player 1: " + player1Current +"</h1>";
+        }
+
+        function p2AddPoints() {
+            if (player1Direction != heartDirection) {
+                player2Current += 2;
+            } else if (player1Direction == heartDirection) {
+                player2Current += 1;
+            }
+            var player2Score = document.querySelector("#p2-score");
+            player2Score.innerHTML = "<h1>Player 2: " + player2Current +"</h1>";
+        }
+
+        function logKey1(e) {
+
+            var leftImg = document.querySelector("#left-frame").firstElementChild.getAttribute('src');
+            var bottomImg = document.querySelector("#bottom-frame").firstElementChild.getAttribute('src');
+            var topImg = document.querySelector("#top-frame").firstElementChild.getAttribute('src');
+            var rightImg = document.querySelector("#right-frame").firstElementChild.getAttribute('src');
+
+            var playerFrame1 = document.querySelector("#player1-frame");
+            var pressedKey = e.key.toLowerCase();
+
+            if (player1Turn == true) {
+                switch (pressedKey) {
+                    case "w":
+                        console.log("pressed w, p1 up")
+                        playerFrame1.innerHTML = "<img src='img/player-up.png'>";
+                        player1Direction = "top";
+                        if (player1Direction == heartDirection) {
+                            console.log("add points p1 up");
+                            p1AddPoints();
+                        }
+                        player1Turn = false;
+                        document.removeEventListener('keydown', logKey1);
+                        nextRound();
+                        break;
+                    case "a":
+                        console.log("pressed a, p1 left")
+                        playerFrame1.innerHTML = "<img src='img/player-left.png'>";
+                        player1Direction = "left";
+                        if (player1Direction == heartDirection) {
+                            console.log("add points p1 left");
+                            p1AddPoints();
+                        }
+                        player1Turn = false;
+                        document.removeEventListener('keydown', logKey1);
+                        nextRound();
+                        break;
+                    case "s":
+                        console.log("pressed s, p1 down")
+                        playerFrame1.innerHTML = "<img src='img/player-down.png'>";
+                        player1Direction = "bottom";
+                        if (player1Direction == heartDirection) {
+                            console.log("add points p1 down");
+                            p1AddPoints();
+                        }
+                        player1Turn = false;
+                        document.removeEventListener('keydown', logKey1);
+                        nextRound();
+                        break;
+                    case "d":
+                        console.log("pressed d, p1 right")
+                        playerFrame1.innerHTML = "<img src='img/player-right.png'>";
+                        player1Direction = "right";
+                        if (player1Direction == heartDirection) {
+                            console.log("add points p1 right");
+                            p1AddPoints();
+                        }
+                        player1Turn = false;
+                        document.removeEventListener('keydown', logKey1);
+                        nextRound();
+                        break;
+                }
+            }
+        }
+
+        function logKey2(e) {
+
+            var leftImg = document.querySelector("#left-frame").firstElementChild.getAttribute('src');
+            var bottomImg = document.querySelector("#bottom-frame").firstElementChild.getAttribute('src');
+            var topImg = document.querySelector("#top-frame").firstElementChild.getAttribute('src');
+            var rightImg = document.querySelector("#right-frame").firstElementChild.getAttribute('src');
+
+            var playerFrame2 = document.querySelector("#player2-frame");
+
+
+            var pressedKey = e.key.toLowerCase();
+
+            if (player2Turn == true) {
+                switch (pressedKey) {
+                    case "i":
+                        console.log("pressed i, p2 up")
+                        playerFrame2.innerHTML = "<img src='img/player-up.png'>";
+                        player2Direction = "top";
+                        if (player2Direction == heartDirection) {
+                            console.log("add points p2 up");
+                            p2AddPoints();
+                        }
+                        player2Turn = false;
+                        document.removeEventListener('keydown', logKey2);
+                        nextRound();
+                        break;
+                    case "j":
+                        console.log("pressed j, p2 left")
+                        playerFrame2.innerHTML = "<img src='img/player-left.png'>";
+                        player2Direction = "left";
+                        if (player2Direction == heartDirection) {
+                            console.log("add points p2 left");
+                            p2AddPoints();
+                        }
+                        player2Turn = false;
+                        document.removeEventListener('keydown', logKey2);
+                        nextRound();
+                        break;
+                    case "k":
+                        console.log("pressed k, p2 down")
+                        playerFrame2.innerHTML = "<img src='img/player-down.png'>";
+                        player2Direction = "bottom";
+                        if (player2Direction == heartDirection) {
+                            console.log("add points p2 down");
+                            p2AddPoints();
+                        }
+                        player2Turn = false;
+                        document.removeEventListener('keydown', logKey2);
+                        nextRound();
+                        break;
+                    case "l":
+                        console.log("pressed l, p2 right")
+                        playerFrame2.innerHTML = "<img src='img/player-right.png'>";
+                        player2Direction = "right";
+                        if (player2Direction == heartDirection) {
+                            console.log("add points p2 right");
+                            p2AddPoints();
+                        }
+                        player2Turn = false;
+                        document.removeEventListener('keydown', logKey2);
+                        nextRound();
+                        break;
+                    }
+                }
+            }
+
+
+
+
+
+
+    </script>
+</body>
+</html>
