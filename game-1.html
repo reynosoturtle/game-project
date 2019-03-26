@@ -67,6 +67,7 @@
         height: 600px;
         border: black 5px solid;
         margin: 0 auto;
+        background: white;
         /*-webkit-animation: closeGame 1s 1;
         animation: closeGame 1s 1;*/
     }
@@ -615,8 +616,8 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAATklEQVQoU2
 
             if (player2Turn == true) {
                 switch (pressedKey) {
-                    case "i":
-                        console.log("pressed i, p2 up")
+                    case "arrowup":
+                        console.log("pressed up, p2 up")
                         playerFrame2.innerHTML = "<img src='img/player-up.png'>";
                         player2Direction = "top";
                         if (player2Direction == heartDirection) {
@@ -627,8 +628,8 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAATklEQVQoU2
                         document.removeEventListener('keydown', logKey2);
                         nextRound();
                         break;
-                    case "j":
-                        console.log("pressed j, p2 left")
+                    case "arrowleft":
+                        console.log("pressed left, p2 left")
                         playerFrame2.innerHTML = "<img src='img/player-left.png'>";
                         player2Direction = "left";
                         if (player2Direction == heartDirection) {
@@ -639,8 +640,8 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAATklEQVQoU2
                         document.removeEventListener('keydown', logKey2);
                         nextRound();
                         break;
-                    case "k":
-                        console.log("pressed k, p2 down")
+                    case "arrowdown":
+                        console.log("pressed down, p2 down")
                         playerFrame2.innerHTML = "<img src='img/player-down.png'>";
                         player2Direction = "bottom";
                         if (player2Direction == heartDirection) {
@@ -651,8 +652,8 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAATklEQVQoU2
                         document.removeEventListener('keydown', logKey2);
                         nextRound();
                         break;
-                    case "l":
-                        console.log("pressed l, p2 right")
+                    case "arrowright":
+                        console.log("pressed right, p2 right")
                         playerFrame2.innerHTML = "<img src='img/player-right.png'>";
                         player2Direction = "right";
                         if (player2Direction == heartDirection) {

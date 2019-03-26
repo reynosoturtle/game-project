@@ -1,0 +1,55 @@
+
+@font-face {
+    font-family: 'fr73pixelw00-regularregular';
+    src: url('../fonts/fr73-pixel-w00_regular-webfont.woff2') format('woff2'),
+         url('../fonts/fr73-pixel-w00_regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+iframe {
+	width: 850px;
+	height: 680px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	border: none;
+}
+
+nav {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 70px;
+	width: 100%;
+	background-color: #eeeeee;
+}
+
+li {
+	display: inline;
+  font-family: "fr73pixelw00-regularregular";
+  font-size: 20px;
+  margin: 0 30px;
+}
+
+#live-clock {
+	float: right;
+	margin-right: 50px;
+}
+
+html {
+	background:	url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHUlEQVQYV2NkYGD4zwABjDACQwCqAKISrAwKwAIAisMEA5Sp5Q4AAAAASUVORK5CYII=
+    ) repeat;
+}
+
+#game-1-icon {
+	position: absolute;
+	top: 150px;
+	right: 40px;
+}
+
+#game-1-icon img {
+	width: 100px;
+	height: 100px;
+}
