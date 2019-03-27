@@ -152,15 +152,15 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAATklEQVQoU2
 
     #player1-frame {
         position: absolute;
-        left: 300px;
-        top: 400px;
+        left: 275px;
+        top: 230px;
         z-index: 2;
     }
 
     #player2-frame {
         position: absolute;
-        left: 400px;
-        top: 400px;
+        left: 275px;
+        top: 285px;
         z-index: 2;
     }
 
@@ -197,9 +197,9 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAATklEQVQoU2
         height: 100px;
     }*/
 
-    #slot1, #slot2, #slot3, #slot4, #slot5, #slot6 {
+    /*#slot1, #slot2, #slot3, #slot4, #slot5, #slot6 {
         background-color: red;
-    }
+    }*/
 
     #options-screen {
         position: absolute;
@@ -218,9 +218,13 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAATklEQVQoU2
         height: 150px;
     }
 
-    #opt1, #opt2, #opt3 {
-        background-color: blue;
+    .visible {
+        visibility: hidden;
     }
+
+    /*#opt1, #opt2, #opt3 {
+        background-color: blue;
+    }*/
 </style>
 </head>
 <body>
@@ -256,16 +260,14 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAATklEQVQoU2
             backdrop.style.margin = "50% 0 0 0";
             backdrop.style.transform = "translateY(-500%)";
             playWindow.appendChild(backdrop);
-            document.addEventListener('keydown' , logKey1);
-            document.addEventListener('keydown' , logKey2);
             //var audio = new Audio('audio/here-we-go.mp3');
             //audio.play();
-            // setTimeout(startGame, 2300);
-            // setTimeout(placeRandom, 4300);
-            // setTimeout(checkForHeart, 4400);
             setTimeout(startGame, 2000);
-            setTimeout(beginCountdown, 2000)
-            setTimeout(placeRandom, 2000);
+            setTimeout(placeRandom, 2010);
+            // setTimeout(beginCountdown, 2020);
+            // setTimeout(flashingImg, 2020);
+            document.addEventListener('keydown' , logKey1);
+            document.addEventListener('keydown' , logKey2);
         }
 
         var player1Current = 0;
@@ -275,6 +277,9 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAATklEQVQoU2
 
         var player1Turn = true;
         var player2Turn = true;
+        var rightAnswer;
+        var player1Answer;
+        var player2Answer;
 
         function resetValues(){
             player1Current = 0;
@@ -289,6 +294,78 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAATklEQVQoU2
         function playAgain(){
             resetValues();
             readyStart();
+        }
+
+        function flashingImg(){
+
+            function slot1Int() {
+                setInterval(function(){
+                    document.querySelector("#slot1").classList.toggle("visible");
+                }, 3000)
+            }
+            function slot2Int() {
+                setInterval(function(){
+                    document.querySelector("#slot2").classList.toggle("visible");
+                }, 2500)
+            }
+            function slot3Int() {
+                setInterval(function(){
+                    document.querySelector("#slot3").classList.toggle("visible");
+                }, 3000)
+            }
+            function slot4Int() {
+                setInterval(function(){
+                    document.querySelector("#slot4").classList.toggle("visible");
+                }, 2500)
+            }
+            function slot5Int() {
+                setInterval(function(){
+                    document.querySelector("#slot5").classList.toggle("visible");
+                }, 3000)
+            }
+            function slot6Int() {
+                setInterval(function(){
+                    document.querySelector("#slot6").classList.toggle("visible");
+                }, 2500)
+            }
+
+            setTimeout(slot1Int, 10);
+            setTimeout(slot2Int, 500);
+            setTimeout(slot3Int, 250);
+            setTimeout(slot4Int, 500);
+            setTimeout(slot5Int, 50);
+            setTimeout(slot6Int, 250);
+
+            // setTimeout(
+            //     setInterval(function(){
+            //         document.querySelector("#slot2").classList.toggle("visible");
+            //     }, 3000),
+            // 2000);
+
+            // setTimeout(
+            //     setInterval(function(){
+            //         document.querySelector("#slot3").classList.toggle("visible");
+            //     }, 3000),
+            // 500);
+
+            // setTimeout(
+            //     setInterval(function(){
+            //         document.querySelector("#slot4").classList.toggle("visible");
+            //     }, 3000),
+            // 300);
+
+            // setTimeout(
+            //     setInterval(function(){
+            //         document.querySelector("#slot5").classList.toggle("visible");
+            //     }, 3000),
+            // 700);
+
+            // setTimeout(
+            //     setInterval(function(){
+            //         document.querySelector("#slot6").classList.toggle("visible");
+            //     }, 3000),
+            // 1500);
+
         }
 
         function gameOver(){
@@ -334,7 +411,10 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAATklEQVQoU2
             } else if (roundCurrent = 6) {
                 console.log("GAME OVER")
                 setTimeout(gameOver, 3000);
-            }
+            }//reset arrays
+                imgIndex = [0,1,2,3,4,5,6,7];
+                slotIndex = [0, 1,2,3,4,5];
+                optIndex = [0,1,2];
         }
 
         function startGame(){
@@ -552,33 +632,36 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAATklEQVQoU2
                     console.log(slotIndex);
                     console.log(optIndex);
 
-            //reset arrays
-                // var imgIndex = [0,1,2,3,4,5,6,7];
-                // var slotIndex = [0, 1,2,3,4,5];
-                // var optIndex = [0,1,2];
+                rightAnswer = randomOption.id;
         }
 
         function p1AddPoints() {
-            if (player2Direction != heartDirection) {
-                player1Current += 2;
-            } else if (player2Direction == heartDirection) {
-                player1Current += 1;
+            if (player1Answer == rightAnswer) {
+                if (player2Answer != rightAnswer) {
+                    player1Current += 2;
+                } else if (player2Answer == rightAnswer) {
+                    player1Current += 1;
+                }
+            } else if (player2Answer != rightAnswer) {
+                console.log("WrONG");
             }
             var player1Score = document.querySelector("#p1-score");
             player1Score.innerHTML = "<h1>Player 1: " + player1Current +"</h1>";
         }
 
         function p2AddPoints() {
-            if (player1Direction != heartDirection) {
-                player2Current += 2;
-            } else if (player1Direction == heartDirection) {
-                player2Current += 1;
+            if (player2Answer == rightAnswer) {
+                if (player1Answer != rightAnswer) {
+                    player2Current += 2;
+                } else if (player1Answer == rightAnswer) {
+                    player2Current += 1;
+                }
+            } else if (player2Answer != rightAnswer) {
+                console.log("WrONG");
             }
             var player2Score = document.querySelector("#p2-score");
             player2Score.innerHTML = "<h1>Player 2: " + player2Current +"</h1>";
         }
-
-
 
         function logKey1(e) {
 
@@ -587,37 +670,60 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAATklEQVQoU2
             var style = window.getComputedStyle(playerFrame1);
             var top = parseInt(style.getPropertyValue('top'), 10);
             var left = parseInt(style.getPropertyValue('left'), 10);
-
+                //p1 top = 230px
+                //p2 top = 285px
+                //1 left = 65px
+                //2 left = 275px
+                //3 left = 485px
+            var slot1 = "65px";
+            var slot2 = "275px";
+            var slot3 = "485px";
+            if (player1Turn = true) {
                 switch (pressedKey) {
                     case "w":
-                        if (top > 20) {
+                        if (left == 65) {
                             console.log("pressed w, p1 up");
-                            playerFrame1.innerHTML = "<img src='img/player-up.png'>";
-                            playerFrame1.style.top = top - 20 + "px";
-                            break;
+                            player1Turn = false;
+                            player1Answer = "opt1";
+                            document.removeEventListener('keydown', logKey1);
+                            p1AddPoints();
+                            nextRound();
+                        } else if (left == 275) {
+                            //fk
+                            console.log("pressed w, p1 up");
+                            player1Turn = false;
+                            player1Answer = "opt2";
+                            document.removeEventListener('keydown', logKey1);
+                            p1AddPoints();
+                            nextRound();
+                        } else if (left == 485) {
+                            //this
+                            console.log("pressed w, p1 up");
+                            player1Turn = false;
+                            player1Answer = "opt3";
+                            document.removeEventListener('keydown', logKey1);
+                            p1AddPoints();
+                            nextRound();
                         }
+                            break;
                     case "a":
-                        if (left > 20) {
-                            console.log("pressed a, p1 left")
-                            playerFrame1.innerHTML = "<img src='img/player-left.png'>";
-                            playerFrame1.style.left = left - 20 + "px";
-                            break;
+                        if (left == 485 || left == 275) {
+                            console.log("pressed a, p1 left");
+                            playerFrame1.style.left = left - 210 + "px";
+                        } else {
+
                         }
-                    case "s":
-                        if (top < 405) {
-                            console.log("pressed s, p1 down")
-                            playerFrame1.innerHTML = "<img src='img/player-down.png'>";
-                            playerFrame1.style.top = top + 20 + "px";
                             break;
-                        }
                     case "d":
-                        if (left < 660) {
+                        if (left == 275 || left == 65) {
                             console.log("pressed d, p1 right")
-                            playerFrame1.innerHTML = "<img src='img/player-right.png'>";
-                            playerFrame1.style.left = left + 20 + "px";
-                            break;
+                            playerFrame1.style.left = left + 210 + "px";
+                        } else {
+
                         }
+                            break;
                 }
+            }
         }
 
         function logKey2(e) {
@@ -628,37 +734,133 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAATklEQVQoU2
             var top = parseInt(style.getPropertyValue('top'), 10);
             var left = parseInt(style.getPropertyValue('left'), 10);
 
+            if (player2Turn = true) {
                 switch (pressedKey) {
                     case "arrowup":
-                        if (top > 20) {
-                            console.log("pressed up, p2 up")
-                            playerFrame2.innerHTML = "<img src='img/player-up.png'>";
-                            playerFrame2.style.top = top - 20 + "px";
-                            break;
+                        if (left == 65) {
+                            console.log("pressed w, p2 up");
+                            player2Turn = false;
+                            player2Answer = "opt1";
+                            document.removeEventListener('keydown', logKey2);
+                            p2AddPoints();
+                            nextRound();
+                        } else if (left == 275) {
+                            //fk
+                            console.log("pressed w, p2 up");
+                            player2Turn = false;
+                            player2Answer = "opt2";
+                            document.removeEventListener('keydown', logKey2);
+                            p2AddPoints();
+                            nextRound();
+                        } else if (left == 485) {
+                            //this
+                            console.log("pressed w, p2 up");
+                            player2Turn = false;
+                            player2Answer = "opt3";
+                            document.removeEventListener('keydown', logKey2);
+                            p2AddPoints();
+                            nextRound();
                         }
+                            break;
                     case "arrowleft":
-                        if (left > 20) {
-                            console.log("pressed left, p2 left")
-                            playerFrame2.innerHTML = "<img src='img/player-left.png'>";
-                            playerFrame2.style.left = left - 20 + "px";
-                            break;
+                        if (left == 485 || left == 275) {
+                            console.log("pressed a, p12left");
+                            playerFrame2.style.left = left - 210 + "px";
+                        } else {
+
                         }
-                    case "arrowdown":
-                        if (top < 405) {
-                            console.log("pressed down, p2 down")
-                            playerFrame2.innerHTML = "<img src='img/player-down.png'>";
-                            playerFrame2.style.top = top + 20 + "px";
                             break;
-                        }
                     case "arrowright":
-                        if (left < 660) {
-                            console.log("pressed right, p2 right")
-                            playerFrame2.innerHTML = "<img src='img/player-right.png'>";
-                            playerFrame2.style.left = left + 20 + "px";
-                            break;
+                        if (left == 275 || left == 65) {
+                            console.log("pressed d, p2 right")
+                            playerFrame2.style.left = left + 210 + "px";
+                        } else {
+
                         }
+                            break;
                 }
+            }
         }
+
+        // function logKey1(e) {
+
+        //     var playerFrame1 = document.querySelector("#player1-frame");
+        //     var pressedKey = e.key.toLowerCase();
+        //     var style = window.getComputedStyle(playerFrame1);
+        //     var top = parseInt(style.getPropertyValue('top'), 10);
+        //     var left = parseInt(style.getPropertyValue('left'), 10);
+
+        //         switch (pressedKey) {
+        //             case "w":
+        //                 if (top > 20) {
+        //                     console.log("pressed w, p1 up");
+        //                     playerFrame1.innerHTML = "<img src='img/player-up.png'>";
+        //                     playerFrame1.style.top = top - 20 + "px";
+        //                     break;
+        //                 }
+        //             case "a":
+        //                 if (left > 20) {
+        //                     console.log("pressed a, p1 left")
+        //                     playerFrame1.innerHTML = "<img src='img/player-left.png'>";
+        //                     playerFrame1.style.left = left - 20 + "px";
+        //                     break;
+        //                 }
+        //             case "s":
+        //                 if (top < 405) {
+        //                     console.log("pressed s, p1 down")
+        //                     playerFrame1.innerHTML = "<img src='img/player-down.png'>";
+        //                     playerFrame1.style.top = top + 20 + "px";
+        //                     break;
+        //                 }
+        //             case "d":
+        //                 if (left < 660) {
+        //                     console.log("pressed d, p1 right")
+        //                     playerFrame1.innerHTML = "<img src='img/player-right.png'>";
+        //                     playerFrame1.style.left = left + 20 + "px";
+        //                     break;
+        //                 }
+        //         }
+        // }
+
+        // function logKey2(e) {
+
+        //     var playerFrame2 = document.querySelector("#player2-frame");
+        //     var pressedKey = e.key.toLowerCase();
+        //     var style = window.getComputedStyle(playerFrame2);
+        //     var top = parseInt(style.getPropertyValue('top'), 10);
+        //     var left = parseInt(style.getPropertyValue('left'), 10);
+
+        //         switch (pressedKey) {
+        //             case "arrowup":
+        //                 if (top > 20) {
+        //                     console.log("pressed up, p2 up")
+        //                     playerFrame2.innerHTML = "<img src='img/player-up.png'>";
+        //                     playerFrame2.style.top = top - 20 + "px";
+        //                     break;
+        //                 }
+        //             case "arrowleft":
+        //                 if (left > 20) {
+        //                     console.log("pressed left, p2 left")
+        //                     playerFrame2.innerHTML = "<img src='img/player-left.png'>";
+        //                     playerFrame2.style.left = left - 20 + "px";
+        //                     break;
+        //                 }
+        //             case "arrowdown":
+        //                 if (top < 405) {
+        //                     console.log("pressed down, p2 down")
+        //                     playerFrame2.innerHTML = "<img src='img/player-down.png'>";
+        //                     playerFrame2.style.top = top + 20 + "px";
+        //                     break;
+        //                 }
+        //             case "arrowright":
+        //                 if (left < 660) {
+        //                     console.log("pressed right, p2 right")
+        //                     playerFrame2.innerHTML = "<img src='img/player-right.png'>";
+        //                     playerFrame2.style.left = left + 20 + "px";
+        //                     break;
+        //                 }
+        //         }
+        // }
 
 
 
