@@ -7,3 +7,9 @@ document.getElementById("game-1-icon").addEventListener("click", function(){
     element.setAttribute("src", "game-1.html");
     document.querySelector("#game-1-window").appendChild(element);
 })
+
+// function closeFrame() {
+//             setTimeout(function(){
+//                 parent.closeFrame();
+//             },500);
+// }

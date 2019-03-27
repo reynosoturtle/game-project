@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>game 2</title>
+<style>
+    @font-face {
+        font-family: 'fr73pixelw00-regularregular';
+        src: url('fonts/fr73-pixel-w00_regular-webfont.woff2') format('woff2'),
+             url('fonts/fr73-pixel-w00_regular-webfont.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    body {
+        cursor: cell;
+    }
+
+    h1 {
+        font-family: "fr73pixelw00-regularregular";
+        font-size: 24px;
+    }
+
+    h2 {
+        font-family: "fr73pixelw00-regularregular";
+        font-size: 20px;
+    }
+
+    p {
+        font-family: "fr73pixelw00-regularregular";
+        font-size: 16px;
+    }
+
+    .instructions {
+        width: 515px;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    .game-start {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        cursor: pointer;
+    }
+
+    .game-start:hover {
+        text-decoration: underline;
+    }
+
+    .float-left {
+        float: left;
+    }
+
+    .float-right {
+        float: right;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    #game-2-window {
+        position: relative;
+        top: 50px;
+        width: 800px;
+        height: 600px;
+        border: black 5px solid;
+        margin: 0 auto;
+        background: white;
+        /*-webkit-animation: closeGame 1s 1;
+        animation: closeGame 1s 1;*/
+    }
+
+    /* Chrome, Safari, Opera */
+    @-webkit-keyframes closeGame {
+        from {
+            width: 800px;
+            height: 600px;
+            display: block;
+        }
+        to {
+            width: 0;
+            height: 0;
+            display: none;
+        }
+    }
+
+    @keyframes closeGame {
+        from {
+            width: 800px;
+            height: 600px;
+            display: block;
+        }
+        to {
+            width: 0;
+            height: 0;
+            display: none;
+        }
+    }
+
+    #close-button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+    }
+
+    .close-button {
+        width: 40px;
+    }
+
+    #play-window {
+        position: relative;
+        width: 730px;
+        height: 475px;
+        border: 5px black solid;
+        margin: 0 auto;
+        background:url(
+data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAATklEQVQoU2NkYGAwZmBgOMuAACA+CKCIMSIpADGRNaEYgKwQ3WQUjTCF6CYhWw2WAynEpgjmIpg7jUlSiM0TWK2GWUOUZ7ApxggeogIcABHJFtftKVfJAAAAAElFTkSuQmCC) repeat;
+    }
+    #gameOver {
+        position: absolute;
+        left: 50%;
+        top: 65%;
+        transform: translate(-50%, -50%);
+    }
+
+    #p1-score {
+        position: absolute;
+        bottom: 25px;
+        left: 50px;
+    }
+
+    #p2-score {
+        position: absolute;
+        bottom: 25px;
+        right: 50px;
+    }
+
+    #round-counter {
+        position: absolute;
+        top: 25px;
+        left: 50px;
+    }
+
+    #round-timer {
+        position: absolute;
+        top: 25px;
+        right: 50px;
+    }
+
+    #player1-frame {
+        position: absolute;
+        left: 300px;
+        top: 400px;
+        z-index: 2;
+    }
+
+    #player2-frame {
+        position: absolute;
+        left: 400px;
+        top: 400px;
+        z-index: 2;
+    }
+
+    #player1-frame img, #player2-frame img {
+        width: 50px;
+        height: 50px;
+    }
+
+    #images-screen {
+        position: absolute;
+        left: 50%;
+        top: 30%;
+        transform: translate(-50%, -50%);
+        width: 660px;
+        padding: 0;
+    }
+
+    #images-screen li {
+        float: left;
+        display: inline-block;
+        margin: 5px;
+        width: 100px;
+        height: 100px;
+    }
+
+    #images-screen li img {
+        height: 100px;
+    }
+
+    /*#slot1 img, #slot2 img, #slot3 img, #slot4 img, #slot5 img, #slot6 img {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        height: 100px;
+    }*/
+
+    #slot1, #slot2, #slot3, #slot4, #slot5, #slot6 {
+        background-color: red;
+    }
+
+    #options-screen {
+        position: absolute;
+        left: 50%;
+        top: 60%;
+        transform: translate(-50%, -50%);
+        width: 630px;
+        padding: 0;
+    }
+
+    #options-screen li {
+        float: left;
+        display: inline-block;
+        margin: 15px 30px;
+        width: 150px;
+        height: 150px;
+    }
+
+    #opt1, #opt2, #opt3 {
+        background-color: blue;
+    }
+</style>
+</head>
+<body>
+    <div id="game-2-window">
+        <nav>
+            <div id="window-title" class="text-center"><h1>Game 2</h1></div>
+            <div id="close-button" onclick="closeGame()"><img class="close-button" src="img/close-button.png"></div>
+        </nav>
+        <div id="play-window">
+            <div id="tutorial">
+                <h1 class="text-center">Absent Minded</h1>
+                <h2 class="instructions">Figure out who isn't there!</h2>
+                <h1 class="text-center">Controls:</h1>
+                <h2 class="instructions">Player 1: WASD + F (Select)<br>Player 2: Arrow keys + / (Select)
+                <!-- Player 1:<br> W (Up) A (Down) S (Left) D (Right) F (Select)<br>
+                Player 2:<br> Arrow Keys (Up, Down, Left and Right) / (Select) --></h2>
+                <h1 class="text-center game-start" onclick="readyStart()">Start Game</h1>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        function readyStart(){
+            var playWindow = document.querySelector("#play-window");
+            //removes tutorial
+            playWindow.innerHTML = "";
+            //create ready start
+            var backdrop = document.createElement("div");
+            backdrop.id = "backdrop";
+            backdrop.classList.add('text-center');
+            backdrop.innerHTML = "<h1>Ready...</h1>";
+            backdrop.style.margin = "50% 0 0 0";
+            backdrop.style.transform = "translateY(-500%)";
+            playWindow.appendChild(backdrop);
+            document.addEventListener('keydown' , logKey1);
+            document.addEventListener('keydown' , logKey2);
+            //var audio = new Audio('audio/here-we-go.mp3');
+            //audio.play();
+            // setTimeout(startGame, 2300);
+            // setTimeout(placeRandom, 4300);
+            // setTimeout(checkForHeart, 4400);
+            setTimeout(startGame, 2000);
+            setTimeout(beginCountdown, 2000)
+            setTimeout(placeRandom, 2000);
+        }
+
+        var player1Current = 0;
+        var player2Current = 0;
+        var roundCurrent = 1;
+        var roundCountdown = 15;
+
+        var player1Turn = true;
+        var player2Turn = true;
+
+        function resetValues(){
+            player1Current = 0;
+            player2Current = 0;
+            roundCurrent = 1;
+            roundCountdown = 3;
+
+            player1Turn = true;
+            player2Turn = true;
+        }
+
+        function playAgain(){
+            resetValues();
+            readyStart();
+        }
+
+        function gameOver(){
+            var playWindow = document.querySelector("#play-window");
+            // //removes tutorial
+            // playWindow.innerHTML = "";
+            var backdrop = document.createElement("div");
+            backdrop.id = "gameOver";
+            backdrop.classList.add('text-center');
+            backdrop.innerHTML = '<h1 class="text-center game-start" onclick="playAgain()">Play Again</h1>';
+            // backdrop.style.margin = "50% 0 0 0";
+            // backdrop.style.transform = "translateY(-500%)";
+            document.querySelector("#main-game").style.opacity = "0.3";
+            document.querySelector("#play-window").appendChild(backdrop);
+        }
+
+        function beginCountdown(){
+            var time = 1;
+            roundCountdown = 15;
+            document.querySelector("#round-timer").innerHTML = "<h1>" + roundCountdown + " seconds</h1>";
+
+            var interval = setInterval(function() {
+                if (time <= 15) {
+                    time ++;
+                    roundCountdown --;
+                    document.querySelector("#round-timer").innerHTML = "<h1>" + roundCountdown + " seconds</h1>";
+                } else {
+                    clearInterval(interval);
+                }
+            }, 1000);
+        }
+
+        function nextRound(){
+            if (roundCurrent <= 4) {
+                console.log(roundCurrent);
+                if (player1Turn == false && player2Turn == false) {
+                    console.log("both done");
+                    roundCurrent++;
+                    setTimeout(readyStart, 1000);
+                    player1Turn = true;
+                    player2Turn = true;
+                }
+            } else if (roundCurrent = 6) {
+                console.log("GAME OVER")
+                setTimeout(gameOver, 3000);
+            }
+        }
+
+        function startGame(){
+            var playWindow = document.querySelector("#play-window");
+            //removes tutorial
+            playWindow.innerHTML = "";
+
+            //create player 1 score
+            var player1Score = document.createElement("div");
+            player1Score.id = "p1-score";
+            player1Score.innerHTML = "<h1>Player 1: " + player1Current +"</h1>"
+            playWindow.appendChild(player1Score);
+
+            //create player 2 score
+            var player2Score = document.createElement("div");
+            player2Score.id = "p2-score";
+            player2Score.innerHTML = "<h1>Player 2: " + player2Current +"</h1>"
+            playWindow.appendChild(player2Score);
+
+            //create round counter
+            var roundCounter = document.createElement("div");
+            roundCounter.id = "round-counter";
+            roundCounter.innerHTML = "<h1>Round: " + roundCurrent +"/5</h1>"
+            playWindow.appendChild(roundCounter);
+
+            //create round timer
+            var roundTimer = document.createElement("div");
+            roundTimer.id = "round-timer";
+            roundTimer.innerHTML = "<h1>" + roundCountdown + " seconds</h1>";
+            playWindow.appendChild(roundTimer);
+
+            //create game constant frames
+            //create container
+            var mainGame = document.createElement("div");
+            mainGame.id = "main-game";
+            playWindow.appendChild(mainGame);
+            //create player frames
+            var playerFrame1 = document.createElement("div");
+            playerFrame1.id = "player1-frame";
+            playerFrame1.classList.add('player-container');
+            playerFrame1.innerHTML = "<img src='img/player-neutral.png'>";
+            mainGame.appendChild(playerFrame1);
+
+            var playerFrame2 = document.createElement("div");
+            playerFrame2.id = "player2-frame";
+            playerFrame2.classList.add('player-container');
+            playerFrame2.innerHTML = "<img src='img/player-neutral.png'>";
+            mainGame.appendChild(playerFrame2);
+
+            //create images list
+            var imgUList = document.createElement("ul");
+            imgUList.id = "images-screen";
+            mainGame.appendChild(imgUList);
+
+            var li1 = document.createElement("li");
+            li1.id = "slot1";
+            imgUList.appendChild(li1);
+
+            var li2 = document.createElement("li");
+            li2.id = "slot2";
+            imgUList.appendChild(li2);
+
+            var li3 = document.createElement("li");
+            li3.id = "slot3";
+            imgUList.appendChild(li3);
+
+            var li4 = document.createElement("li");
+            li4.id = "slot4";
+            imgUList.appendChild(li4);
+
+            var li5 = document.createElement("li");
+            li5.id = "slot5";
+            imgUList.appendChild(li5);
+
+            var li6 = document.createElement("li");
+            li6.id = "slot6";
+            imgUList.appendChild(li6);
+
+            //create images list
+            var optUList = document.createElement("ul");
+            optUList.id = "options-screen";
+            mainGame.appendChild(optUList);
+
+            var opt1 = document.createElement("li");
+            opt1.id = "opt1";
+            optUList.appendChild(opt1);
+
+            var opt2 = document.createElement("li");
+            opt2.id = "opt2";
+            optUList.appendChild(opt2);
+
+            var opt3 = document.createElement("li");
+            opt3.id = "opt3";
+            optUList.appendChild(opt3);
+        }
+
+        function closeGame(){
+            var gameWindow = document.querySelector("#game-2-window");
+            // gameWindow.style.width = "0";
+            // gameWindow.style.height = "0";
+            // gameWindow.style.display = "none";
+            gameWindow.innerHTML = "";
+            gameWindow.style.WebkitAnimation = "closeGame 0.5s 1";
+            gameWindow.style.animation = "closeGame 0.5s 1";
+            setTimeout(function(){
+                gameWindow.style.display = "none";
+            }, 500);
+        }
+
+        var imgArray = ["img/CHARS/1.png", "img/CHARS/2.png", "img/CHARS/3.png", "img/CHARS/4.png", "img/CHARS/5.png", "img/CHARS/6.png", "img/CHARS/7.png", "img/CHARS/8.png"];
+        var slotArray = ["#slot1", "#slot2", "#slot3", "#slot4", "#slot5", "#slot6"];
+        var optArray = ["#opt1", "#opt2", "#opt3"];
+
+        var imgIndex = [0,1,2,3,4,5,6,7];
+        var slotIndex = [0, 1,2,3,4,5];
+        var optIndex = [0,1,2];
+
+        function placeRandom(){
+            //create 2 matches
+            for (i=0; i<2; i++) {
+                var pickedImg = Math.floor(Math.random() * imgIndex.length);
+                    console.log("picked img: " +pickedImg);
+
+
+                var pickedSlot = Math.floor(Math.random() * slotIndex.length);
+                    console.log("picked slot: " +pickedSlot);
+
+                var pickedOpt = Math.floor(Math.random() * optIndex.length);
+                    console.log("picked opt: " +pickedOpt);
+
+                var randomImg = imgArray[imgIndex[pickedImg]]
+                    console.log("picked img index: " + imgIndex[pickedImg])
+
+                var randomSlot = document.querySelector(slotArray[slotIndex[pickedSlot]]);
+                    console.log("picked slot index: " + slotIndex[pickedSlot]);
+
+                var randomOption = document.querySelector(optArray[optIndex[pickedOpt]]);
+                    console.log("picked slot index: " + optIndex[pickedOpt]);
+
+                var image = document.createElement("img");
+                image.src = randomImg;
+                var image2 = document.createElement("img");
+                image2.src = randomImg;
+                randomSlot.appendChild(image);
+                    console.log('appended slotimg to slot: ' + randomSlot + " with " + randomImg);
+
+                randomOption.appendChild(image2);
+                    console.log('appended optimg to opt: ' + randomOption + " with " + randomImg);
+
+                imgIndex.splice(pickedImg, 1);
+                    console.log('splicing ' + pickedImg);
+
+                slotIndex.splice(pickedSlot, 1);
+                    console.log('splicing ' + pickedSlot);
+
+                optIndex.splice(pickedOpt, 1);
+                    console.log('splicing ' + pickedOpt);
+                    console.log(imgIndex);
+                    console.log(slotIndex);
+                    console.log(optIndex);
+            }
+            //fill the rest of the slots
+            for (i=0; i<4; i++) {
+                var pickedImg = Math.floor(Math.random() * imgIndex.length);
+                    console.log("picked img: " +pickedImg);
+
+
+                var pickedSlot = Math.floor(Math.random() * slotIndex.length);
+                    console.log("picked slot: " +pickedSlot);
+
+                var randomImg = imgArray[imgIndex[pickedImg]]
+                    console.log("picked img index: " + imgIndex[pickedImg])
+
+                var randomSlot = document.querySelector(slotArray[slotIndex[pickedSlot]]);
+                    console.log("picked slot index: " + slotIndex[pickedSlot]);
+
+                var image = document.createElement("img");
+                image.src = randomImg;
+                randomSlot.appendChild(image);
+                    console.log('appended slotimg to slot: ' + randomSlot + " with " + randomImg);
+
+                imgIndex.splice(pickedImg, 1);
+                    console.log('splicing ' + pickedImg);
+
+                slotIndex.splice(pickedSlot, 1);
+                    console.log('splicing ' + pickedSlot);
+                    console.log(imgIndex);
+                    console.log(slotIndex);
+            }
+            //create odd one out
+                var pickedImg = Math.floor(Math.random() * imgIndex.length);
+                    console.log("picked img: " +pickedImg);
+
+                var pickedOpt = Math.floor(Math.random() * optIndex.length);
+                    console.log("picked opt: " +pickedOpt);
+
+                var randomImg = imgArray[imgIndex[pickedImg]]
+                    console.log("picked img index: " + imgIndex[pickedImg])
+
+                var randomOption = document.querySelector(optArray[optIndex[pickedOpt]]);
+                    console.log("picked slot index: " + optIndex[pickedOpt]);
+
+                var image = document.createElement("img");
+                image.src = randomImg;
+
+                randomOption.appendChild(image);
+                    console.log('appended optimg to opt: ' + randomOption + " with " + randomImg);
+
+                imgIndex.splice(pickedImg, 1);
+                    console.log('splicing ' + pickedImg);
+
+                optIndex.splice(pickedOpt, 1);
+                    console.log('splicing ' + pickedOpt);
+                    console.log(imgIndex);
+                    console.log(slotIndex);
+                    console.log(optIndex);
+
+            //reset arrays
+                // var imgIndex = [0,1,2,3,4,5,6,7];
+                // var slotIndex = [0, 1,2,3,4,5];
+                // var optIndex = [0,1,2];
+        }
+
+        function p1AddPoints() {
+            if (player2Direction != heartDirection) {
+                player1Current += 2;
+            } else if (player2Direction == heartDirection) {
+                player1Current += 1;
+            }
+            var player1Score = document.querySelector("#p1-score");
+            player1Score.innerHTML = "<h1>Player 1: " + player1Current +"</h1>";
+        }
+
+        function p2AddPoints() {
+            if (player1Direction != heartDirection) {
+                player2Current += 2;
+            } else if (player1Direction == heartDirection) {
+                player2Current += 1;
+            }
+            var player2Score = document.querySelector("#p2-score");
+            player2Score.innerHTML = "<h1>Player 2: " + player2Current +"</h1>";
+        }
+
+
+
+        function logKey1(e) {
+
+            var playerFrame1 = document.querySelector("#player1-frame");
+            var pressedKey = e.key.toLowerCase();
+            var style = window.getComputedStyle(playerFrame1);
+            var top = parseInt(style.getPropertyValue('top'), 10);
+            var left = parseInt(style.getPropertyValue('left'), 10);
+
+                switch (pressedKey) {
+                    case "w":
+                        if (top > 20) {
+                            console.log("pressed w, p1 up");
+                            playerFrame1.innerHTML = "<img src='img/player-up.png'>";
+                            playerFrame1.style.top = top - 20 + "px";
+                            break;
+                        }
+                    case "a":
+                        if (left > 20) {
+                            console.log("pressed a, p1 left")
+                            playerFrame1.innerHTML = "<img src='img/player-left.png'>";
+                            playerFrame1.style.left = left - 20 + "px";
+                            break;
+                        }
+                    case "s":
+                        if (top < 405) {
+                            console.log("pressed s, p1 down")
+                            playerFrame1.innerHTML = "<img src='img/player-down.png'>";
+                            playerFrame1.style.top = top + 20 + "px";
+                            break;
+                        }
+                    case "d":
+                        if (left < 660) {
+                            console.log("pressed d, p1 right")
+                            playerFrame1.innerHTML = "<img src='img/player-right.png'>";
+                            playerFrame1.style.left = left + 20 + "px";
+                            break;
+                        }
+                }
+        }
+
+        function logKey2(e) {
+
+            var playerFrame2 = document.querySelector("#player2-frame");
+            var pressedKey = e.key.toLowerCase();
+            var style = window.getComputedStyle(playerFrame2);
+            var top = parseInt(style.getPropertyValue('top'), 10);
+            var left = parseInt(style.getPropertyValue('left'), 10);
+
+                switch (pressedKey) {
+                    case "arrowup":
+                        if (top > 20) {
+                            console.log("pressed up, p2 up")
+                            playerFrame2.innerHTML = "<img src='img/player-up.png'>";
+                            playerFrame2.style.top = top - 20 + "px";
+                            break;
+                        }
+                    case "arrowleft":
+                        if (left > 20) {
+                            console.log("pressed left, p2 left")
+                            playerFrame2.innerHTML = "<img src='img/player-left.png'>";
+                            playerFrame2.style.left = left - 20 + "px";
+                            break;
+                        }
+                    case "arrowdown":
+                        if (top < 405) {
+                            console.log("pressed down, p2 down")
+                            playerFrame2.innerHTML = "<img src='img/player-down.png'>";
+                            playerFrame2.style.top = top + 20 + "px";
+                            break;
+                        }
+                    case "arrowright":
+                        if (left < 660) {
+                            console.log("pressed right, p2 right")
+                            playerFrame2.innerHTML = "<img src='img/player-right.png'>";
+                            playerFrame2.style.left = left + 20 + "px";
+                            break;
+                        }
+                }
+        }
+
+
+
+
+
+
+</script>
+</body>
+</html>

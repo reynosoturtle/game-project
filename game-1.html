@@ -128,25 +128,25 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAATklEQVQoU2
 
     #p1-score {
         position: absolute;
-        top: 25px;
+        bottom: 25px;
         left: 50px;
     }
 
     #p2-score {
         position: absolute;
-        top: 25px;
+        bottom: 25px;
         right: 50px;
     }
 
     #round-counter {
         position: absolute;
-        bottom: 25px;
+        top: 25px;
         left: 50px;
     }
 
     #round-timer {
         position: absolute;
-        bottom: 25px;
+        top: 25px;
         right: 50px;
     }
 
@@ -283,6 +283,10 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAATklEQVQoU2
         var player1Turn = true;
         var player2Turn = true;
 
+        var heartDirection = 0;
+        var player1Direction = 0;
+        var player2Direction = 0;
+
         function resetValues(){
             player1Current = 0;
             player2Current = 0;
@@ -291,6 +295,10 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAATklEQVQoU2
 
             player1Turn = true;
             player2Turn = true;
+
+            heartDirection = 0;
+            player1Direction = 0;
+            player2Direction = 0;
         }
 
         function playAgain(){
@@ -400,6 +408,10 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAATklEQVQoU2
                     setTimeout(readyStart, 1000);
                     player1Turn = true;
                     player2Turn = true;
+
+                    heartDirection = 0;
+                    player1Direction = 0;
+                    player2Direction = 0;
                 }
             } else if (roundCurrent = 6) {
                 console.log("GAME OVER")
@@ -487,10 +499,6 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAATklEQVQoU2
                 gameWindow.style.display = "none";
             }, 500);
         }
-
-        var heartDirection = 0;
-        var player1Direction = 0;
-        var player2Direction = 0;
 
         function checkForHeart(){
             var leftImg = document.querySelector("#left-frame").firstElementChild.getAttribute('src');
@@ -667,12 +675,6 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAATklEQVQoU2
                     }
                 }
             }
-
-
-
-
-
-
     </script>
 </body>
 </html>
