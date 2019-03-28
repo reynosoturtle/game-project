@@ -53,3 +53,14 @@ html {
 	width: 100px;
 	height: 100px;
 }
+
+#game-2-icon {
+	position: absolute;
+	top: 300px;
+	right: 40px;
+}
+
+#game-2-icon img {
+	width: 100px;
+	height: 100px;
+}

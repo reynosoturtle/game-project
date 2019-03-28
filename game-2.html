@@ -238,7 +238,7 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAATklEQVQoU2
                 <h1 class="text-center">Absent Minded</h1>
                 <h2 class="instructions">Figure out who isn't there!</h2>
                 <h1 class="text-center">Controls:</h1>
-                <h2 class="instructions">Player 1: WASD + F (Select)<br>Player 2: Arrow keys + / (Select)
+                <h2 class="instructions">Player 1: W (Select) A (Left) D (Right)<br>Player 2: Left Arrow Key (Left) Right Arrow Key (Right) Up Arrow Key (Select)
                 <!-- Player 1:<br> W (Up) A (Down) S (Left) D (Right) F (Select)<br>
                 Player 2:<br> Arrow Keys (Up, Down, Left and Right) / (Select) --></h2>
                 <h1 class="text-center game-start" onclick="readyStart()">Start Game</h1>
@@ -264,8 +264,8 @@ data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAATklEQVQoU2
             //audio.play();
             setTimeout(startGame, 2000);
             setTimeout(placeRandom, 2010);
-            // setTimeout(beginCountdown, 2020);
-            // setTimeout(flashingImg, 2020);
+            setTimeout(beginCountdown, 2020);
+            setTimeout(flashingImg, 2020);
             document.addEventListener('keydown' , logKey1);
             document.addEventListener('keydown' , logKey2);
         }
